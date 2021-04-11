@@ -13,9 +13,9 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\User\\source\\repos\\MarkovModel\\MarkovModel.csproj",
-      "projectName": "MarkovModel",
-      "projectPath": "C:\\Users\\User\\source\\repos\\MarkovModel\\MarkovModel.csproj",
+      "projectUniqueName": "C:\\Users\\User\\source\\repos\\MarkovModel\\ChromosomeExtraction.csproj",
+      "projectName": "ChromosomeExtraction",
+      "projectPath": "C:\\Users\\User\\source\\repos\\MarkovModel\\ChromosomeExtraction.csproj",
       "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
       "outputPath": "C:\\Users\\User\\source\\repos\\MarkovModel\\obj\\",
       "projectStyle": "PackageReference",
