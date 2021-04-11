@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "2uAx7BGfJBPPItPLnNt5lJWIjzGCvoHmTfV1OJ/D7jLqG5gEq1DYqwOewcAeqcTK+ciQLcH4vYF/tHT/ztyLeA==",
+  "dgSpecHash": "czPUWdG2j2ia6YOEExjH2ZHPNDOWLlgY3kUUMPhfTT5QVMIaifhyBgsHZVneGIE+xjquRl8TAdjyzXtRHNFjZg==",
   "success": true,
-  "projectFilePath": "C:\\Users\\User\\source\\repos\\MarkovModel\\ChromosomeExtraction.csproj",
+  "projectFilePath": "C:\\Users\\polar\\Source\\Repos\\GeiGeiLa\\MarkovHiddenModel\\ChromosomeExtraction.csproj",
   "expectedPackageFiles": [],
   "logs": []
 }

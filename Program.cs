@@ -1,134 +1,61 @@
 ﻿using System;
-using System.IO;
+using System.Collections.Generic;
 using System.Diagnostics;
-#nullable enable
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using static ChromosomeExtraction.Extraction;
 namespace ChromosomeExtraction
 {
     class Program
     {
-        const string startString = "ttggtaccat";
-        const string endString = "TAATTGCAGT";
-        const string endStringLowered = "taattgcagt";
         static void Main(string[] args)
         {
+            run();
+        }
+        static void getData()
+        {
+            int a = 100000;
+            int b = 1099999;
+            Extract(a, b, true);
+            Debug.WriteLine("OK");
+            Extract(1100000, 2099999);
+        }
+        static void run()
+        {
+            //double[,] transition =
+            //{
+            //    {0.7, 0.3},
+            //    {0.4, 0.6}
+            //}; 
+            double[,] transition =
+            {
+            /*     a      c      g      t   */
+                {0.359, 0.143, 0.167, 0.331},
+                {0.384, 0.156, 0.023, 0.437},
+                {0.305, 0.199, 0.150, 0.345 },
+                {0.284, 0.182, 0.177, 0.357 }
+            };
 
-            string filePath;
-            string pathInProject = "../../../GRCh38_latest_genomic.fna";
-            string pathRoot = "./GRCh38_latest_genomic.fna";
-            bool startFound = false;
-            bool useConsole = false;
-            int startPosition = -1;
-            int endPosition = -1;
-            string? line;
-            if (args.Length == 0)
-            {
-                filePath = File.Exists(pathInProject) ? pathInProject : pathRoot;
-            }
-            else
-            {
-                filePath = args[0];
-            }
-            using StreamReader reader = new StreamReader(filePath);
-            using (StreamWriter writer = useConsole ?
-                new(Console.OpenStandardOutput()) : new("output.txt"))
-            {
-                writer.WriteLine(reader.ReadLine() + "\nPress \'Enter\' to read next line, '\'c\' to break");
-                if (useConsole)
-                {
-                    writer.AutoFlush = true;
-                    Console.SetOut(writer);
-                }
-                int baseNumber;
-                for (baseNumber = 0; baseNumber < 100000; baseNumber++)
-                {
-                    _ = reader.ReadLine();
-                }
 
-                for (; baseNumber < 1099999; baseNumber++)
-                {
-                    line = reader.ReadLine();
-                    if (line == null)
-                    {
-                        Debug.WriteLine("reached end of file");
-                        break;
-                    }
-                    // write specified range of data to output.txt
-                    writer.WriteLine(line.ToLower());
-                    // mark start position
-                    // condition should be taken only once
-                    if (!startFound && line.Contains(startString))
-                    {
-                        startPosition = baseNumber;
-                        startFound = true;
-                    }
-                    else if (startFound && line.Contains(endString))
-                    {
-                        endPosition = baseNumber;
-                    }
-                }
-            }
-            Debug.WriteLine("start:" + startPosition + "end:" + endPosition);
+            double[,] emission =
+            {
+                { 0.1, 0.4, 0.5 },
+                { 0.6, 0.3, 0.1 },
+                { 0.2, 0.8, 0.1 },
+                { 0.2, 0.5, 0.3 }
+            };
 
-            // found start and end
-            // now read again and output the desired parts
-            using (StreamWriter writer = useConsole ?
-                new(Console.OpenStandardOutput()) : new("SParts.txt") )
-            {
-                if (useConsole)
-                {
-                    writer.AutoFlush = true;
-                    Console.SetOut(writer);
-                }
-                // return to the beginning of file
-                reader.DiscardBufferedData();
-                reader.BaseStream.Seek(0, SeekOrigin.Begin);
-                reader.BaseStream.Position = 0;
-                // skip the title line
-                Debug.WriteLine(reader.ReadLine() );
-                if (startPosition == -1 || endPosition == -1)
-                {
-                    throw new Exception();
-                }
-                int lineNo;
-                // skipped unwanted parts
-                for (lineNo = 0; lineNo < startPosition; lineNo++)
-                {
-                    _ = reader.ReadLine();
-                }
-                for (; lineNo < endPosition; lineNo++)
-                {
-                    line = reader.ReadLine();
-                    if (line == null)
-                    {
-                        Debug.WriteLine("reached EOF");
-                        break;
-                    }
-                    writer.WriteLine(line.ToLower());
-                }
-            }// end writing SParts
-            using StreamReader sReader = new(@"SParts.txt"); 
-            using StreamWriter sWriter = new(@"S.txt");
-            line = sReader.ReadLine();
-            int startColumnNo = line!.IndexOf(startString);
-            sWriter.WriteLine(line.Substring(startColumnNo));
-            while( (line = sReader.ReadLine() ) != null )
-            {
-                if( line.Contains(endStringLowered) )
-                {
-                    Debug.WriteLine("reached end");
-                    int endColumnNo = line.IndexOf(endStringLowered);
-                    sWriter.WriteLine(line.Substring(0, endColumnNo + endString.Length));
-                    break;
-                }
-                sWriter.WriteLine(line);
-            }
-            if (line == null) throw new NullReferenceException();
-            if(!useConsole)
-            {
-                Process.Start(@"C:\Program Files\Microsoft VS Code\Code.exe", @"output.txt");
-                Process.Start(@"C:\Program Files\Microsoft VS Code\Code.exe", @"SParts.txt");
-                Process.Start(@"C:\Program Files\Microsoft VS Code\Code.exe", @"S.txt");
-            }
-        }// end main
+            double[] initial = { 0.6, 0.4 };
+
+            HiddenMarkovModel hmm = new HiddenMarkovModel(transition, emission, initial);
+            int[] sequence = new int[] { 0, 1, 2 };
+
+            double logLikeliHood = hmm.Evaluate(sequence);
+
+            // At this point, the log-likelihood of the sequence
+            // occurring within the model is -3.3928721329161653.
+            Console.WriteLine("logLikeliHood: {0}", logLikeliHood);
+        }
     }
 }

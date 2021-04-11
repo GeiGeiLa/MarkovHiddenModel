@@ -5,4 +5,10 @@
     <TargetFramework>net5.0</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Compile Remove="Gamma.cs" />
+    <Compile Remove="ITopology.cs" />
+    <Compile Remove="PolynomialHelper.cs" />
+  </ItemGroup>
+
 </Project>
