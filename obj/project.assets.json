@@ -8,23 +8,19 @@
     "net5.0": []
   },
   "packageFolders": {
-    "C:\\Users\\polar\\.nuget\\packages\\": {},
-    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
+    "C:\\Users\\User\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\polar\\Source\\Repos\\GeiGeiLa\\MarkovHiddenModel\\ChromosomeExtraction.csproj",
+      "projectUniqueName": "C:\\Users\\User\\source\\repos\\MarkovModel\\ChromosomeExtraction.csproj",
       "projectName": "ChromosomeExtraction",
-      "projectPath": "C:\\Users\\polar\\Source\\Repos\\GeiGeiLa\\MarkovHiddenModel\\ChromosomeExtraction.csproj",
-      "packagesPath": "C:\\Users\\polar\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\polar\\Source\\Repos\\GeiGeiLa\\MarkovHiddenModel\\obj\\",
+      "projectPath": "C:\\Users\\User\\source\\repos\\MarkovModel\\ChromosomeExtraction.csproj",
+      "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\User\\source\\repos\\MarkovModel\\obj\\",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-      ],
       "configFilePaths": [
-        "C:\\Users\\polar\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\User\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -64,7 +60,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.104\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.101\\RuntimeIdentifierGraph.json"
       }
     }
   }
