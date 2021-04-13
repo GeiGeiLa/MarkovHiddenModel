@@ -155,7 +155,9 @@ namespace ChromosomeExtraction
 
             for (int i = 0; i < N; ++i)
             {
-                lnfwd[0, i] = logPi[i] + logB[i, observations[0]];
+                lnfwd[0, i] = logPi[i];
+                var lb = logB[i, observations[0]];
+                lnfwd[0, i] += lb;
             }
 
             for (int t = 1; t < T; ++t)

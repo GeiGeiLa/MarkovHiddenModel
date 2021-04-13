@@ -98,31 +98,31 @@ namespace ChromosomeExtraction
             using StreamWriter sWriter = new(@"S." + startNo + "_" + endNo + ".txt");
             line = sReader.ReadLine();
             int startColumnNo = line!.IndexOf(startString);
-            sWriter.WriteLine(line.Substring(startColumnNo));
+            sWriter.Write(line.Substring(startColumnNo).ReplaceACGT());
             while( (line = sReader.ReadLine() ) != null )
             {
                 if( line.Contains(endStringLowered) )
                 {
                     Debug.WriteLine("reached end");
                     int endColumnNo = line.IndexOf(endStringLowered);
-                    sWriter.WriteLine(line.Substring(0, endColumnNo + endString.Length));
+                    sWriter.Write(line.Substring(0, endColumnNo + endString.Length).ReplaceACGT());
                     break;
                 }
-                sWriter.WriteLine(line);
+                sWriter.Write(line.ReplaceACGT());
             }
             if (line == null)
             {
                 Debug.WriteLine("Should not reach EOF");
                 throw new Exception();
             }
-            if(!useConsole && shouldOpen)
+            if(false && !useConsole && shouldOpen )
             {
                 string editorPath = File.Exists(@"F:\Apps\Microsoft VS Code\Code.exe") ?
                     @"F:\Apps\Microsoft VS Code\Code.exe" : @"C:\Program Files\Microsoft VS Code\Code.exe";
                 try
                 {
                     //Process.Start(editorPath, @"output.txt");
-                    Process.Start(editorPath, @"SParts"+startNo+"_"+endNo+".txt");
+                    //Process.Start(editorPath, @"SParts"+startNo+"_"+endNo+".txt");
                     Process.Start(editorPath, @"S." + startNo + "_" + endNo + ".txt");
                 }
                 catch(Exception ex)
@@ -131,5 +131,17 @@ namespace ChromosomeExtraction
                 }
             }
         }// end main
+    }
+    public static class replacement
+    {
+        /// <summary>
+        /// Replace A C G T with 0 1 2 3
+        /// </summary>
+        /// <param name="s"></param>
+        /// <returns></returns>
+        public static string ReplaceACGT(this string s)
+        {
+            return s.Replace('a', '0').Replace('c', '1').Replace('g', '2').Replace('t', '3');
+        }
     }
 }
